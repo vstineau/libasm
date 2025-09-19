@@ -1,0 +1,4 @@
+*.o
+test
+libasm.a
+.obj

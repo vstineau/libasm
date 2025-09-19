@@ -1,10 +1,9 @@
-NAME = liasm.a
-CC = nasm 
-CFLAGS = -Wall -Wextra -Werror 
+NAME = libasm.a
+AS = nasm 
+ASFLAGS = -f elf64 -g 
 SRCS = 			ft_read.s \
 				ft_strlen.s \
 				ft_strcpy.s \
-				ft_strlcpy.s \
 				ft_strcmp.s \
 				ft_strdup.s 
 
@@ -14,28 +13,39 @@ SRCS_BONUS =	ft_list_push_front_bonus.s \
 				ft_list_remove_if_bonnus.s \
 				ft_atoi_base_bonus.s 
 
-OBJS = $(SRCS:.s=.o)
-OBJS_BONUS = $(SRCS_BONUS:.s=.o)
+OBJS_PATH = .obj/
+OBJS_NAME = $(SRCS:.s=.o)
+OBJS_BONUS_NAME = $(SRCS_BONUS:.s=.o)
+OBJS_BONUS = $(addprefix $(OBJS_PATH), $(OBJS_BONUS_NAME))
+OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
 
+$(OBJS_PATH)%.o: %.s
+	@mkdir -p $(@D)
+	$(AS) $(ASFLAGS) $< -o $@
 
+all: $(NAME) 
 
-all: $(NAME)
+test: $(NAME) 
+	gcc -o test -Wall -Wextra -Werror main.c libasm.a
 
 $(NAME): $(OBJS) 
 	ar -rcs $(NAME) $(OBJS)
 
-%.o: %.s
-	$(CC) $(CFLAGS) $<
-
 clean:
-	rm -rf $(OBJS) $(OBJS_BONUS)
+	rm -rf .obj
 
 fclean: clean
 	rm -rf $(NAME)
+	rm -rf test
 
-re: fclean all
+re: fclean test
 
 bonus: $(OBJS) $(OBJS_BONUS)
 	ar -rcs $(NAME) $(OBJS_BONUS) $(OBJS) 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re bonus
+
+#https://wiki.osdev.org/System_V_ABI
+#Parameters to functions are passed in via the registers rdi, rsi, rdx, rcx, r8, and r9.
+#rax, rdi, rsi, rdx, rcx, r8, r9, r10, r11 are scratch registers.
+#Functions preserve the registers rbx, rsp, rbp, r12, r13, r14, and r15
