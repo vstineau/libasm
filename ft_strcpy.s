@@ -3,7 +3,7 @@ BITS 64
 global ft_strcpy
 ft_strcpy:
 	xor rax, rax,
-.LOOP
+	.LOOP:
 	mov dl, [rsi + rax]; mov 1 byte of src (rsi is second arg) 
 	mov [rdi + rax], dl;mov in dest (rdi is first arg) the byte read from src
 

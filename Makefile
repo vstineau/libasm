@@ -5,6 +5,7 @@ SRCS = 			ft_read.s \
 				ft_strlen.s \
 				ft_strcpy.s \
 				ft_strcmp.s \
+				ft_write.s \
 				ft_strdup.s 
 
 SRCS_BONUS =	ft_list_push_front_bonus.s \
@@ -46,6 +47,10 @@ bonus: $(OBJS) $(OBJS_BONUS)
 .PHONY: all clean fclean re bonus
 
 #https://wiki.osdev.org/System_V_ABI
-#Parameters to functions are passed in via the registers rdi, rsi, rdx, rcx, r8, and r9.
-#rax, rdi, rsi, rdx, rcx, r8, r9, r10, r11 are scratch registers.
-#Functions preserve the registers rbx, rsp, rbp, r12, r13, r14, and r15
+#Parameters registers:  rdi, rsi, rdx, rcx, r8, and r9.
+#Return register : rax
+#Scratch registers: rax, rdi, rsi, rdx, rcx, r8, r9, r10, r11
+#Preserved registers rbx, rsp, rbp, r12, r13, r14, and r15
+#int3 interruption debug (put a breakpoint in the code)
+#erno_location
+#syscall table : https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
