@@ -4,6 +4,7 @@ BITS 64
 
 extern __errno_location
 
+section .text
 global ft_write
 ft_write:
 	mov rax, 1; set rax to 1 because syscall write is index 1 in syscall table
@@ -14,6 +15,8 @@ ft_write:
 	ret
 
 	.ERROR:
+	push rbx; save rbx on stack because it's a preserve register
+	xor rbx, rbx; set rbx to 0
 	mov rdx, rax; save rax
 	call __errno_location wrt ..plt
 	
@@ -22,6 +25,7 @@ ft_write:
  
 	xor rax, rax
 	not rax; after we set errno we set the return value to -1
+	pop rbx; restore rbx after use
 	ret
 
 	
