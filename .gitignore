@@ -2,3 +2,4 @@
 test
 libasm.a
 .obj
+libasmTester

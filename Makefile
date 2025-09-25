@@ -8,8 +8,8 @@ SRCS = 			ft_read.s \
 				ft_write.s \
 				ft_strdup.s 
 
-SRCS_BONUS =	ft_list_push_front_bonus.s \
-				ft_list_size_bonus.s \
+SRCS_BONUS =	ft_list_size_bonus.s \
+				ft_list_push_front_bonus.s #\
 				ft_list_sort_bonus.s \
 				ft_list_remove_if_bonnus.s \
 				ft_atoi_base_bonus.s 

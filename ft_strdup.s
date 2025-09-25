@@ -21,7 +21,7 @@ ft_strdup:
 	je .ERROR
 	xor r8, r8
 	xor rsi, rsi
-.LOOP
+.LOOP:
 	mov r8b, [rbx + rsi]; exctract one byte from str
 	mov [rax + rsi], r8b; move the byte to allocated string in rax
 	inc rsi; use rsi as increment

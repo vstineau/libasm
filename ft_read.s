@@ -2,8 +2,6 @@ BITS 64
 
 ;syscall table : https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
 
-extern __errno_location
-
 BITS 64
 
 extern __errno_location
