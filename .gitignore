@@ -3,3 +3,4 @@ test
 libasm.a
 .obj
 libasmTester
+.bonus_built

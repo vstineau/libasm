@@ -9,9 +9,9 @@ SRCS = 			ft_read.s \
 				ft_strdup.s 
 
 SRCS_BONUS =	ft_list_size_bonus.s \
-				ft_list_push_front_bonus.s #\
+				ft_list_push_front_bonus.s# \
 				ft_list_sort_bonus.s \
-				ft_list_remove_if_bonnus.s \
+				ft_list_remove_if_bonus.s \
 				ft_atoi_base_bonus.s 
 
 OBJS_PATH = .obj/
@@ -20,31 +20,35 @@ OBJS_BONUS_NAME = $(SRCS_BONUS:.s=.o)
 OBJS_BONUS = $(addprefix $(OBJS_PATH), $(OBJS_BONUS_NAME))
 OBJS = $(addprefix $(OBJS_PATH), $(OBJS_NAME))
 
+OBJS_LIB = $(OBJS)
+
 $(OBJS_PATH)%.o: %.s
 	@mkdir -p $(@D)
 	$(AS) $(ASFLAGS) $< -o $@
 
-all: $(NAME) 
+all: $(NAME)
 
-test: $(NAME) 
-	gcc -o test -Wall -Wextra -Werror main.c libasm.a
+bonus: .bonus_built
 
-$(NAME): $(OBJS) 
+.bonus_built: $(OBJS) $(OBJS_BONUS)
+	ar -rcs $(NAME) $(OBJS_BONUS) $(OBJS)
+	touch .bonus_built
+
+$(NAME): $(OBJS)
 	ar -rcs $(NAME) $(OBJS)
 
+test: $(NAME)
+	gcc -o test -Wall -Wextra -Werror main.c libasm.a
+
 clean:
-	rm -rf .obj
+	rm -rf .obj .bonus_built
 
 fclean: clean
-	rm -rf $(NAME)
-	rm -rf test
+	rm -rf $(NAME) test
 
 re: fclean test
 
-bonus: $(OBJS) $(OBJS_BONUS)
-	ar -rcs $(NAME) $(OBJS_BONUS) $(OBJS) 
-
-.PHONY: all clean fclean re bonus
+.PHONY: all clean fclean re bonus test
 
 #https://wiki.osdev.org/System_V_ABI
 #Parameters registers:  rdi, rsi, rdx, rcx, r8, and r9.

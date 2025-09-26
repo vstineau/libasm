@@ -28,7 +28,7 @@ ft_list_push_front:
 	pop rbx
 	ret
 
-.ERROR
+.ERROR:
 	pop r12
 	pop rbx
 	ret
