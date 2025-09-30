@@ -9,10 +9,7 @@ SRCS = 			ft_read.s \
 				ft_strdup.s 
 
 SRCS_BONUS =	ft_list_size_bonus.s \
-				ft_list_push_front_bonus.s# \
-				ft_list_sort_bonus.s \
-				ft_list_remove_if_bonus.s \
-				ft_atoi_base_bonus.s 
+				ft_list_push_front_bonus.s
 
 OBJS_PATH = .obj/
 OBJS_NAME = $(SRCS:.s=.o)
@@ -40,11 +37,14 @@ $(NAME): $(OBJS)
 test: $(NAME)
 	gcc -o test -Wall -Wextra -Werror main.c libasm.a
 
+testbonus: $(NAME)
+	gcc -o testbonus -Wall -Wextra -Werror main_bonus.c libasm.a
+
 clean:
 	rm -rf .obj .bonus_built
 
 fclean: clean
-	rm -rf $(NAME) test
+	rm -rf $(NAME) test testbonus
 
 re: fclean test
 

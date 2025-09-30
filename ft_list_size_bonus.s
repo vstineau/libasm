@@ -8,9 +8,9 @@ ft_list_size:
 	je .ERROR
 
 .LOOP:
-	mov rdi, [rdi + 8] 
-	inc rax
-	cmp rdi, 0
+	mov rdi, [rdi + 8]; current  = current->next 
+	inc rax; rax++ to count derectly int the return value register 
+	cmp rdi, 0; check if current == NULL
 	jne .LOOP
 
 	ret
